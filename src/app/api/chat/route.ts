@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { agentConfig, runAgent } from "@/lib/agent/run";
+import { extractDetails } from "@/lib/agent/extract-details";
 import { guidedReply } from "@/lib/agent/guided";
 import type { TurnState } from "@/lib/agent/tools";
 import { sanitizeCart } from "@/lib/cart";
@@ -84,8 +85,21 @@ export async function POST(req: Request) {
       let mode: "ai" | "guided" = "guided";
 
       const runGuided = (prefix?: string) => {
-        const reply = guidedReply(history[history.length - 1]!.text, state.cart);
-        const text = prefix ? `${prefix}\n\n${reply.text}` : reply.text;
+        const message = history[history.length - 1]!.text;
+        // Keep any contact or order details the customer typed, so the lead is complete.
+        const found = extractDetails(message);
+        const known = state.lead.details;
+        const isNew = (Object.keys(found) as (keyof typeof found)[]).some((k) => found[k] !== known[k]);
+        if (isNew) {
+          state.lead = { ...state.lead, details: { ...known, ...found } };
+          state.dirty = true;
+        }
+        const noted =
+          (found.phone && found.phone !== known.phone) || (found.email && found.email !== known.email)
+            ? `Thank you, I've noted your details so ${site.owner} can follow up.`
+            : undefined;
+        const reply = guidedReply(message, state.cart, { notedContact: Boolean(noted) });
+        const text = [prefix, noted, reply.text].filter(Boolean).join("\n\n");
         send({ t: "text", v: text });
         assistantText = text;
         if (reply.productIds?.length) send({ t: "products", ids: reply.productIds });

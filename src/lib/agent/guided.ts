@@ -44,7 +44,7 @@ function nameMatches(text: string) {
   return [];
 }
 
-export function guidedReply(message: string, cart: CartLine[]): GuidedReply {
+export function guidedReply(message: string, cart: CartLine[], opts: { notedContact?: boolean } = {}): GuidedReply {
   const t = message.toLowerCase();
   const priced = priceCart(cart);
   const hasBox = priced.lines.length > 0;
@@ -65,7 +65,7 @@ export function guidedReply(message: string, cart: CartLine[]): GuidedReply {
     };
   }
 
-  if (/whatsapp|call|talk|human|person|deepika|contact|phone number/.test(t)) {
+  if (!opts.notedContact && /whatsapp|call|talk|human|person|deepika|contact|phone number/.test(t)) {
     return {
       text: `You can message ${site.owner} directly on WhatsApp at ${site.phoneDisplay}. Tap the green button and your gift box (if any) will be typed out in the message.`,
       handoff: true,
@@ -145,6 +145,19 @@ export function guidedReply(message: string, cart: CartLine[]): GuidedReply {
       productIds: bestsellers.slice(0, 6).map((p) => p.id),
       suggestions: [...boxSuggestion, "Festive gifts", "Custom cake"],
     };
+  }
+
+  if (opts.notedContact) {
+    return hasBox
+      ? {
+          text: `Whenever you're ready, tap "Send my order on WhatsApp" and your gift box goes to ${site.owner} with everything typed out.`,
+          suggestions: ["Send my order on WhatsApp", "Add something else", "Go to checkout"],
+        }
+      : {
+          text: "What are you celebrating? Tell me the occasion, your budget or what you're craving, and I'll suggest something lovely.",
+          productIds: bestsellers.slice(0, 4).map((p) => p.id),
+          suggestions: defaultSuggestions,
+        };
   }
 
   return {
