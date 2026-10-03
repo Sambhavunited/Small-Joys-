@@ -83,7 +83,7 @@ export function SiteFooter() {
       <div className="border-t border-cream/10">
         <div className="container-page flex flex-col gap-2 py-5 text-xs text-cream/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.name} by {site.owner}. Made with love.
+            © {year} {site.name} by {site.owner}. Made with love. Some photos show similar bakes for illustration.
           </p>
           <Link href="/privacy" className="hover:text-cream">
             Privacy

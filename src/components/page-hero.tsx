@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Image from "next/image";
+import { SafeImage } from "@/components/safe-image";
 
 export function PageHero({
   eyebrow,
@@ -28,8 +28,8 @@ export function PageHero({
         {actions ? <div className="mt-8 flex flex-col gap-3 sm:flex-row">{actions}</div> : null}
       </div>
       {image ? (
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-sand shadow-lift lg:max-w-md">
-          <Image
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-sand shadow-lift not-has-[img]:hidden lg:max-w-md">
+          <SafeImage
             src={image}
             alt={imageAlt ?? ""}
             fill

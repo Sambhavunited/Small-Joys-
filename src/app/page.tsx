@@ -7,6 +7,7 @@ import { formatINR } from "@/lib/format";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { OpenChatButton } from "@/components/open-chat-button";
 import { ProductCard } from "@/components/product-card";
+import { SafeImage } from "@/components/safe-image";
 import { SectionHeading } from "@/components/section-heading";
 
 const steps = [
@@ -269,9 +270,9 @@ export default function HomePage() {
             {gallery.cakes.map((img) => (
               <div
                 key={img.src}
-                className="relative aspect-[3/4] w-48 shrink-0 snap-start overflow-hidden rounded-2xl bg-paper shadow-soft ring-1 ring-line sm:w-56"
+                className="relative aspect-[3/4] w-48 shrink-0 snap-start overflow-hidden rounded-2xl bg-paper shadow-soft ring-1 ring-line not-has-[img]:hidden sm:w-56"
               >
-                <Image src={img.src} alt={img.alt} fill sizes="224px" className="object-cover" />
+                <SafeImage src={img.src} alt={img.alt} fill sizes="224px" className="object-cover" />
               </div>
             ))}
           </div>

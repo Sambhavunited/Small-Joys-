@@ -3,6 +3,8 @@
 // Edit this file to change products, prices or photos everywhere on the site,
 // including what the AI assistant knows.
 
+import { GALLERY_CROP, pexels, unsplash } from "@/data/stock-photos";
+
 export type CategoryId =
   "gift-boxes" | "brownies" | "cookies" | "cakes" | "cupcakes" | "treats" | "dessert-table" | "made-to-order";
 
@@ -69,6 +71,7 @@ export const categories: Category[] = [
 
 const P = (name: string) => `/images/products/${name}.webp`;
 const G = (name: string) => `/images/gallery/${name}.webp`;
+// Stock photos (unsplash, pexels) stand in where there is no Small Joys photo yet. See stock-photos.ts.
 
 export const products: Product[] = [
   // ---------- Gift boxes & hampers ----------
@@ -354,6 +357,8 @@ export const products: Product[] = [
     price: 35,
     unit: "per piece",
     description: "Chocolate rounds set with rose petals, pumpkin seeds and dried fruits.",
+    image: pexels(7407264),
+    imageFit: "photo",
     tone: "burgundy",
     occasions: ["festive", "thank-you"],
   },
@@ -377,8 +382,8 @@ export const products: Product[] = [
     ],
     description:
       "Soft, buttery tea-time loaves. Ask about our signature flavours: ginger orange rosemary, masala chai, almond honey and a sugar-free whole-wheat carrot cinnamon cake.",
-    image: P("loaf-choco-chip"),
-    imageFit: "cutout",
+    image: pexels(32789046),
+    imageFit: "photo",
     tone: "navy",
     tags: ["bestseller"],
     occasions: ["thank-you", "festive", "house-warming"],
@@ -400,8 +405,8 @@ export const products: Product[] = [
       { label: "Vanilla" },
     ],
     description: "Classic everyday tea cakes, light and perfect with chai.",
-    image: P("loaf-vanilla-orange"),
-    imageFit: "cutout",
+    image: pexels(30700685),
+    imageFit: "photo",
     tone: "navy",
     occasions: ["thank-you", "house-warming"],
   },
@@ -422,6 +427,8 @@ export const products: Product[] = [
       { label: "Rainbow", price: 250 },
     ],
     description: "Layered cake and cream in a 350 g jar, ready to spoon.",
+    image: pexels(264731),
+    imageFit: "photo",
     tone: "navy",
     occasions: ["birthday", "thank-you"],
   },
@@ -440,6 +447,8 @@ export const products: Product[] = [
       { label: "Butterscotch", price: 65 },
     ],
     description: "Classic cream pastries by the piece.",
+    image: pexels(2147868),
+    imageFit: "photo",
     tone: "navy",
     occasions: ["birthday"],
   },
@@ -594,6 +603,8 @@ export const products: Product[] = [
       { label: "Fruit gateau" },
     ],
     description: "Layered dessert shots, from Indian fusion to classic mousse.",
+    image: unsplash("1504388192519-fb4be897c4d0"),
+    imageFit: "photo",
     tone: "sand",
     occasions: ["wedding", "birthday", "corporate"],
     minQty: 10,
@@ -607,6 +618,8 @@ export const products: Product[] = [
     optionLabel: "Style",
     options: [{ label: "Chocolate dipped" }, { label: "Nutella drizzled" }],
     description: "Brownie bites served in shot cups.",
+    image: unsplash("1606313564200-e75d5e30476c"),
+    imageFit: "photo",
     tone: "sand",
     occasions: ["birthday", "wedding"],
     minQty: 10,
@@ -625,6 +638,8 @@ export const products: Product[] = [
       { label: "New York (strawberry, as available)" },
     ],
     description: "Single-serve cheesecakes in small glasses.",
+    image: pexels(20809255),
+    imageFit: "photo",
     tone: "sand",
     occasions: ["wedding", "birthday", "anniversary"],
     minQty: 10,
@@ -660,7 +675,7 @@ export const products: Product[] = [
     price: null,
     description:
       "Theme cakes, tiered cakes, fondant toppers and elegant buttercream finishes, designed around your story. Share the theme, size, flavour and date.",
-    image: G("cake-gold-40th"),
+    image: unsplash("1542007920-992d2c424d09"),
     imageFit: "photo",
     tone: "rose",
     tags: ["bestseller"],
@@ -714,6 +729,8 @@ export const products: Product[] = [
     price: null,
     description:
       "Savoury and sweet spreads for kitty parties, offices and family brunches, from mini samosas and sliders to chaat boards, wraps, waffles and mini pastries.",
+    image: unsplash("1601050690597-df0568f70950"),
+    imageFit: "photo",
     tone: "sand",
     occasions: ["corporate", "birthday", "house-warming"],
     madeToOrder: true,
@@ -784,13 +801,14 @@ export const cateringMenus = [
 /** Photos for the gallery and made-to-order pages */
 export const gallery = {
   cakes: [
-    { src: G("cake-gold-40th"), alt: "White and gold 40th birthday cake with a feather, pearls and roses" },
-    { src: G("theme-cake-hotwheels"), alt: "Number six race-track cake with toy cars" },
-    { src: G("theme-cake-lego"), alt: "Tall LEGO-themed birthday cake" },
-    { src: G("theme-cake-books"), alt: "Book-lover's cake with a stack of novels and macarons" },
-    { src: G("theme-cake-unicorn"), alt: "Pastel unicorn cake with buttercream swirls" },
-    { src: G("theme-cake-rainbow"), alt: "Rainbow balloon birthday cake with candles" },
-    { src: G("cake-camera"), alt: "Camera-shaped fondant cake" },
+    { src: unsplash("1535141192574-5d4897c12636", GALLERY_CROP), alt: "Three-tier vanilla cake with fresh berries" },
+    { src: unsplash("1571927087035-d47ce65e4736", GALLERY_CROP), alt: "Pastel unicorn cake on a cake stand" },
+    { src: unsplash("1748813792606-359b33f4ab30", GALLERY_CROP), alt: "Car-themed birthday cake for a little one" },
+    { src: unsplash("1464349095431-e9a21285b5f3", GALLERY_CROP), alt: "Sliced celebration cake on a cake stand" },
+    { src: unsplash("1525257831700-183b9b8bf5c4", GALLERY_CROP), alt: "Four-tier white cake with flowers" },
+    { src: unsplash("1610670444950-0b29430891b4", GALLERY_CROP), alt: "Chocolate birthday cake with lit candles" },
+    { src: unsplash("1604413191066-4dd20bedf486", GALLERY_CROP), alt: "Pink and white floral cake" },
+    { src: unsplash("1553710120-23dd1551da41", GALLERY_CROP), alt: "Rainbow unicorn birthday cake with candles" },
   ],
   hampers: [
     { src: G("hamper-burgundy-floral"), alt: "Burgundy basket hamper with florals, jars, candle and printed tins" },

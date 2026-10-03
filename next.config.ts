@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60 * 60 * 24 * 30,
+    // Free-to-use stock photos (see src/data/stock-photos.ts)
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "https", hostname: "images.pexels.com", pathname: "/photos/**" },
+    ],
   },
   async headers() {
     return [

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { gallery, getProduct } from "@/data/menu";
 import { site } from "@/data/site";
+import { unsplash } from "@/data/stock-photos";
 import { CakeBrief } from "@/components/cake-brief";
 import { GalleryGrid } from "@/components/gallery-grid";
 import { PageHero } from "@/components/page-hero";
@@ -33,8 +34,8 @@ export default function CustomCakesPage() {
             your idea and get a personal quote from {site.owner} on WhatsApp.
           </p>
         }
-        image="/images/gallery/cake-gold-40th.webp"
-        imageAlt="White and gold 40th birthday cake with a feather, pearls and roses"
+        image={unsplash("1535141192574-5d4897c12636")}
+        imageAlt="Three-tier vanilla cake with fresh berries"
         actions={
           <>
             <a href="#brief" className="btn btn-primary px-6">
@@ -50,13 +51,13 @@ export default function CustomCakesPage() {
       <section className="bg-paper py-14 sm:py-20">
         <div className="container-page">
           <SectionHeading
-            eyebrow="Gallery"
+            eyebrow="Inspiration"
             title={
               <>
-                A few of our <span className="italic">favourite cakes</span>
+                Ideas for <span className="italic">your cake</span>
               </>
             }
-            intro="Every design is made to order, so yours will be one of a kind."
+            intro="A few styles to get you started. Every cake is made to order, so send a reference picture and yours will be one of a kind."
           />
           <GalleryGrid images={gallery.cakes} className="mt-8" />
         </div>
