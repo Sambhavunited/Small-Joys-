@@ -302,12 +302,16 @@ export default function HomePage() {
             </h2>
             <p className="mt-5 text-[1.02rem] leading-relaxed text-muted">
               {site.name} is a home bakery and gifting studio by {site.owner}. Every brownie, cookie and cake is baked in small
-              batches and packed by hand, so each box feels personal, whether it&apos;s a single tub of tiramisu or a hundred
-              festive hampers.
+              batches and finished by hand, so that each box feels wonderfully personal, whether it holds a single tub of tiramisu
+              or a hundred festive hampers.
             </p>
             <p className="mt-4 text-[1.02rem] leading-relaxed text-muted">
-              We believe the smallest treats can carry the biggest feelings. That&apos;s why we sweat the details: the ribbon, the
-              note card and the first bite.
+              We hold that the smallest treats can carry the largest feelings. And so we take great care over the particulars: the
+              ribbon, the note card and, above all, the first bite.
+            </p>
+            <p className="mt-4 text-[1.02rem] leading-relaxed text-muted">
+              For those who order, it is seldom really about the treats. It is about wanting someone to know they were remembered,
+              and that is a wish we take rather seriously.
             </p>
             <Link href="/about" className="btn btn-outline mt-8 px-6">
               Read our story <ArrowRight className="size-4.5" aria-hidden="true" />
