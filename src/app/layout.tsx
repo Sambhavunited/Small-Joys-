@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CartDrawer, Toaster } from "@/components/cart-drawer";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -87,20 +88,26 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${manrope.variable} ${instrument.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
+        <noscript>
+          {/* Without JavaScript, show scroll-revealed content straight away. */}
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
         >
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main" className="flex flex-1 flex-col">
-          {children}
-        </main>
-        <SiteFooter />
-        <CartDrawer />
-        <ChatWidget />
-        <Toaster />
+        <MotionProvider>
+          <SiteHeader />
+          <main id="main" className="flex flex-1 flex-col">
+            {children}
+          </main>
+          <SiteFooter />
+          <CartDrawer />
+          <ChatWidget />
+          <Toaster />
+        </MotionProvider>
         <script
           type="application/ld+json"
           // JSON-LD built from our own constants, with "<" escaped.

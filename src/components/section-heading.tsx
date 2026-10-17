@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import clsx from "clsx";
+import { Reveal } from "@/components/motion/reveal";
 
 export function SectionHeading({
   eyebrow,
@@ -17,7 +18,7 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <div
+    <Reveal
       className={clsx(
         "flex flex-col gap-4",
         align === "center" ? "items-center text-center" : "sm:flex-row sm:items-end sm:justify-between",
@@ -30,6 +31,6 @@ export function SectionHeading({
         {intro ? <p className="mt-3 text-[1.02rem] leading-relaxed text-muted">{intro}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
-    </div>
+    </Reveal>
   );
 }

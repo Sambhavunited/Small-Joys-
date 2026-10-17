@@ -7,6 +7,7 @@ import { formatINR } from "@/lib/format";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { OpenChatButton } from "@/components/open-chat-button";
 import { ProductCard } from "@/components/product-card";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { SafeImage } from "@/components/safe-image";
 import { SectionHeading } from "@/components/section-heading";
 
@@ -33,16 +34,16 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="container-page grid items-center gap-10 pt-6 pb-14 sm:pt-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:pt-14 lg:pb-20">
-          <div className="animate-fade-up">
-            <p className="eyebrow">Home bakery & gifting studio · by {site.owner}</p>
-            <h1 className="mt-4 font-display text-[3.4rem] leading-[0.92] tracking-[-0.01em] text-ink sm:text-7xl lg:text-[5.6rem]">
+          <div>
+            <p className="eyebrow animate-fade-up">Home bakery & gifting studio · by {site.owner}</p>
+            <h1 className="mt-4 animate-fade-up font-display [animation-delay:90ms] text-[3.4rem] leading-[0.92] tracking-[-0.01em] text-ink sm:text-7xl lg:text-[5.6rem]">
               Gifts that spread <span className="text-burgundy italic">smiles</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            <p className="mt-5 max-w-xl animate-fade-up text-lg leading-relaxed text-muted [animation-delay:180ms]">
               Handmade brownies, cookies, cakes and festive hampers, baked in small batches and packed with love. Ready to gift,
               for every little celebration.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex animate-fade-up flex-col gap-3 [animation-delay:270ms] sm:flex-row">
               <OpenChatButton className="btn btn-primary px-6 text-base">
                 <Sparkles className="size-4.5" aria-hidden="true" />
                 Plan a gift with Joy
@@ -52,7 +53,7 @@ export default function HomePage() {
                 <ArrowRight className="size-4.5" aria-hidden="true" />
               </Link>
             </div>
-            <ul className="mt-9 grid max-w-xl grid-cols-1 gap-3 text-sm text-ink/80 sm:grid-cols-3">
+            <ul className="mt-9 grid max-w-xl animate-fade-up grid-cols-1 gap-3 text-sm text-ink/80 [animation-delay:360ms] sm:grid-cols-3">
               <li className="flex items-center gap-2.5">
                 <Wheat className="size-5 text-olive" aria-hidden="true" /> Baked fresh in small batches
               </li>
@@ -66,7 +67,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[2.25rem] bg-sand shadow-lift">
+            <div className="relative aspect-[4/5] animate-hero-in overflow-hidden rounded-t-[999px] rounded-b-[2.25rem] bg-sand shadow-lift">
               <Image
                 src="/images/scenes/hero-gift-box.webp"
                 alt="Hands holding a Small Joys gift box of brownies, cookies and macarons tied with an olive ribbon"
@@ -79,7 +80,7 @@ export default function HomePage() {
             {miniTreats ? (
               <Link
                 href="/gifting"
-                className="absolute -bottom-5 -left-2 flex items-center gap-3 rounded-2xl bg-paper p-3 pr-5 shadow-lift ring-1 ring-line transition hover:-translate-y-0.5 sm:-left-8"
+                className="absolute -bottom-5 -left-2 flex animate-fade-up items-center gap-3 rounded-2xl bg-paper p-3 pr-5 shadow-lift ring-1 ring-line transition hover:-translate-y-0.5 [animation-delay:600ms] sm:-left-8"
               >
                 <span className="relative size-14 overflow-hidden rounded-xl bg-sand">
                   <Image src="/images/products/dry-cake-hamper.webp" alt="" fill sizes="56px" className="object-contain p-1" />
@@ -109,17 +110,18 @@ export default function HomePage() {
             }
             intro="Pick an occasion and Joy, our gifting assistant, will suggest the perfect treats and build your gift box with you."
           />
-          <div className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-2.5 sm:gap-3">
+          <Stagger stagger={0.04} className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-2.5 sm:gap-3">
             {occasions.map((o) => (
-              <OpenChatButton
-                key={o.id}
-                prompt={o.prompt}
-                className="rounded-full bg-cream px-4 py-2.5 text-[0.95rem] font-semibold text-ink ring-1 ring-line transition hover:-translate-y-0.5 hover:bg-burgundy hover:text-paper hover:ring-burgundy sm:px-5 sm:py-3"
-              >
-                {o.label}
-              </OpenChatButton>
+              <StaggerItem key={o.id}>
+                <OpenChatButton
+                  prompt={o.prompt}
+                  className="rounded-full bg-cream px-4 py-2.5 text-[0.95rem] font-semibold text-ink ring-1 ring-line transition hover:-translate-y-0.5 hover:bg-burgundy hover:text-paper hover:ring-burgundy sm:px-5 sm:py-3"
+                >
+                  {o.label}
+                </OpenChatButton>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
@@ -140,38 +142,34 @@ export default function HomePage() {
               </Link>
             }
           />
-          <div className="no-scrollbar relative -mx-4 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4 lg:gap-5">
+          <Stagger className="no-scrollbar relative -mx-4 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4 lg:gap-5">
             {featured.map((p, i) => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                priority={i < 2}
-                layout="stack"
-                className="w-[78vw] max-w-xs shrink-0 snap-start sm:w-auto sm:max-w-none"
-              />
+              <StaggerItem key={p.id} className="flex w-[78vw] max-w-xs shrink-0 snap-start sm:w-auto sm:max-w-none">
+                <ProductCard product={p} priority={i < 2} layout="stack" className="w-full" />
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
       {/* How it works */}
       <section className="bg-navy py-14 text-cream sm:py-20">
         <div className="container-page">
-          <div className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <p className="eyebrow text-[#d9c9a8]">How ordering works</p>
             <h2 className="mt-2 font-display text-[2.35rem] leading-[1.02] sm:text-5xl">
               From idea to gift box, <span className="italic text-[#e9c7c1]">in a few taps</span>
             </h2>
-          </div>
-          <ol className="mt-10 grid gap-5 md:grid-cols-3">
+          </Reveal>
+          <Stagger as="ol" stagger={0.12} className="mt-10 grid gap-5 md:grid-cols-3">
             {steps.map((s, i) => (
-              <li key={s.title} className="rounded-[1.5rem] bg-white/[0.06] p-6 ring-1 ring-white/10">
+              <StaggerItem as="li" key={s.title} className="rounded-[1.5rem] bg-white/[0.06] p-6 ring-1 ring-white/10">
                 <span className="font-display text-5xl text-[#d9c9a8] italic">0{i + 1}</span>
                 <h3 className="mt-3 text-lg font-bold">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-cream/75">{s.body}</p>
-              </li>
+              </StaggerItem>
             ))}
-          </ol>
+          </Stagger>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <OpenChatButton className="btn bg-cream px-6 text-ink hover:bg-white">
               <Sparkles className="size-4.5 text-burgundy" aria-hidden="true" />
@@ -193,7 +191,7 @@ export default function HomePage() {
       {/* Gifting feature */}
       <section className="py-14 sm:py-20">
         <div className="container-page grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="relative order-2 lg:order-1">
+          <Reveal className="relative order-2 lg:order-1">
             <div className="relative aspect-[5/6] overflow-hidden rounded-[2rem] bg-sand shadow-lift">
               <Image
                 src="/images/scenes/sibling-edit.webp"
@@ -215,8 +213,8 @@ export default function HomePage() {
               </div>
               <p className="px-1 pt-2 pb-1 text-center font-display text-lg italic">Custom hampers</p>
             </div>
-          </div>
-          <div className="order-1 lg:order-2">
+          </Reveal>
+          <Reveal delay={0.1} className="order-1 lg:order-2">
             <p className="eyebrow">Festive & corporate gifting</p>
             <h2 className="mt-2 font-display text-[2.35rem] leading-[1.02] sm:text-5xl">
               Gifting, done <span className="text-burgundy italic">beautifully</span>
@@ -245,7 +243,7 @@ export default function HomePage() {
                 Plan a bulk order
               </OpenChatButton>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -266,16 +264,19 @@ export default function HomePage() {
               </Link>
             }
           />
-          <div className="no-scrollbar relative -mx-4 mt-8 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0">
+          <Stagger
+            stagger={0.06}
+            className="no-scrollbar relative -mx-4 mt-8 flex snap-x gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0"
+          >
             {gallery.cakes.map((img) => (
-              <div
+              <StaggerItem
                 key={img.src}
                 className="relative aspect-[3/4] w-48 shrink-0 snap-start overflow-hidden rounded-2xl bg-paper shadow-soft ring-1 ring-line not-has-[img]:hidden sm:w-56"
               >
                 <SafeImage src={img.src} alt={img.alt} fill sizes="224px" className="object-cover" />
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
           <OpenChatButton prompt="I'd like a custom cake designed for a celebration." className="btn btn-primary mt-8 px-6">
             <Sparkles className="size-4.5" aria-hidden="true" />
             Get a cake quote
@@ -286,7 +287,7 @@ export default function HomePage() {
       {/* Story */}
       <section className="py-14 sm:py-20">
         <div className="container-page grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] bg-sand shadow-lift">
+          <Reveal className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[2rem] bg-sand shadow-lift">
             <Image
               src="/images/scenes/mini-treats.webp"
               alt="A Small Joys mini treats box with brownies, cookies and cake slices"
@@ -294,8 +295,8 @@ export default function HomePage() {
               sizes="(min-width: 1024px) 40vw, 92vw"
               className="object-cover"
             />
-          </div>
-          <div>
+          </Reveal>
+          <Reveal delay={0.1}>
             <p className="eyebrow">Our story</p>
             <h2 className="mt-2 font-display text-[2.35rem] leading-[1.02] sm:text-5xl">
               Little delights, <span className="text-burgundy italic">packaged with love</span>
@@ -316,14 +317,14 @@ export default function HomePage() {
             <Link href="/about" className="btn btn-outline mt-8 px-6">
               Read our story <ArrowRight className="size-4.5" aria-hidden="true" />
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Final CTA */}
       <section className="pb-16 sm:pb-24">
         <div className="container-page">
-          <div className="relative overflow-hidden rounded-[2rem] bg-burgundy px-6 py-12 text-center text-paper sm:px-12 sm:py-16">
+          <Reveal className="relative overflow-hidden rounded-[2rem] bg-burgundy px-6 py-12 text-center text-paper sm:px-12 sm:py-16">
             <div className="paper-grain pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
             <h2 className="relative font-display text-[2.4rem] leading-[1.02] sm:text-6xl">
               Not sure what to gift? <span className="italic text-[#f1d3cd]">Ask Joy.</span>
@@ -347,7 +348,7 @@ export default function HomePage() {
                 WhatsApp {site.phoneDisplay}
               </a>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
     </>
